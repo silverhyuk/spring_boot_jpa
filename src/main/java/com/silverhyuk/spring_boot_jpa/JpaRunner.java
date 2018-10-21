@@ -1,6 +1,7 @@
 package com.silverhyuk.spring_boot_jpa;
 
 import com.silverhyuk.spring_boot_jpa.account.Account;
+import org.hibernate.Session;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -20,9 +21,10 @@ public class JpaRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         Account account = new Account();
-        account.setUsername("Eunhyuk");
+        account.setUsername("Silverhyuk");
         account.setPassword("password");
 
-        entityManager.persist(account);
+        Session session = entityManager.unwrap(Session.class);
+        session.save(account);
     }
 }
