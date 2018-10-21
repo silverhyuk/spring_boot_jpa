@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.Date;
 
 @Component
 @Transactional
@@ -23,6 +24,9 @@ public class JpaRunner implements ApplicationRunner {
         Account account = new Account();
         account.setUsername("Silverhyuk");
         account.setPassword("password");
+        account.setYes("Y");
+        account.setNo("N");
+        account.setCreated(new Date());
 
         Session session = entityManager.unwrap(Session.class);
         session.save(account);

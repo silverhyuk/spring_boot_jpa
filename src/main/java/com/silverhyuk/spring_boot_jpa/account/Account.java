@@ -1,19 +1,27 @@
 package com.silverhyuk.spring_boot_jpa.account;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.springframework.stereotype.Component;
 
-@Entity
+import javax.persistence.*;
+import java.util.Date;
+
+@Entity(name="myAccount")
 public class Account {
     @Id
     @GeneratedValue
     private Long id;
-    @Column
+    @Column(nullable = false, unique = true, length = 50)
     private String username;
     @Column
     private String password;
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created = new Date();
+
+    private String yes;
+
+    @Transient
+    private String no;
 
     public Long getId() {
         return id;
@@ -37,5 +45,29 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public String getYes() {
+        return yes;
+    }
+
+    public void setYes(String yes) {
+        this.yes = yes;
+    }
+
+    public String getNo() {
+        return no;
+    }
+
+    public void setNo(String no) {
+        this.no = no;
     }
 }
