@@ -1,9 +1,12 @@
 package com.silverhyuk.spring_boot_jpa.account;
 
+import com.silverhyuk.spring_boot_jpa.study.Study;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name="myAccount")
 public class Account {
@@ -14,20 +17,9 @@ public class Account {
     private String username;
     @Column
     private String password;
-    @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date created = new Date();
 
-    private String yes;
-
-    @Transient
-    private String no;
-
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name="street", column = @Column(name="home_street"))
-    })
-    private Address address;
+    @OneToMany
+    private Set<Study> studies = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -53,27 +45,11 @@ public class Account {
         this.password = password;
     }
 
-    public Date getCreated() {
-        return created;
+    public Set<Study> getStudies() {
+        return studies;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    public String getYes() {
-        return yes;
-    }
-
-    public void setYes(String yes) {
-        this.yes = yes;
-    }
-
-    public String getNo() {
-        return no;
-    }
-
-    public void setNo(String no) {
-        this.no = no;
+    public void setStudies(Set<Study> studies) {
+        this.studies = studies;
     }
 }
