@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity(name="myAccount")
+@Entity(name="Account")
 public class Account {
     @Id
     @GeneratedValue
@@ -18,7 +18,7 @@ public class Account {
     @Column
     private String password;
 
-    @OneToMany
+    @OneToMany(mappedBy = "owner")
     private Set<Study> studies = new HashSet<>();
 
     public Long getId() {
@@ -51,5 +51,15 @@ public class Account {
 
     public void setStudies(Set<Study> studies) {
         this.studies = studies;
+    }
+
+    public void addStudy(Study study) {
+        this.getStudies().add(study);
+        study.setOwner(this);
+    }
+
+    public void removeStudy(Study study) {
+        this.getStudies().remove(study);
+        study.setOwner(null);
     }
 }
