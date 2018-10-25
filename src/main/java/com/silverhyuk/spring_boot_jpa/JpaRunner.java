@@ -1,6 +1,7 @@
 package com.silverhyuk.spring_boot_jpa;
 
 import com.silverhyuk.spring_boot_jpa.account.Account;
+import com.silverhyuk.spring_boot_jpa.study.Study;
 import org.hibernate.Session;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -28,7 +29,13 @@ public class JpaRunner implements ApplicationRunner {
         account.setNo("N");
         account.setCreated(new Date());
 
+        Study study = new Study();
+        study.setName("Spring Data JPA");
+        study.setOwner(account);
+
+
         Session session = entityManager.unwrap(Session.class);
         session.save(account);
+        session.save(study);
     }
 }
