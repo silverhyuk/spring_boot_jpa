@@ -1,6 +1,6 @@
-package com.silverhyuk.spring_boot_jpa.study;
+package com.silverhyuk.spring_boot_jpa.entity.study;
 
-import com.silverhyuk.spring_boot_jpa.account.Account;
+import com.silverhyuk.spring_boot_jpa.entity.account.Account;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

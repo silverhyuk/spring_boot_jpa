@@ -1,4 +1,4 @@
-package com.silverhyuk.spring_boot_jpa.account;
+package com.silverhyuk.spring_boot_jpa.entity.account;
 
 import javax.persistence.Embeddable;
 

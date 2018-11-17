@@ -1,10 +1,8 @@
-package com.silverhyuk.spring_boot_jpa.account;
+package com.silverhyuk.spring_boot_jpa.entity.account;
 
-import com.silverhyuk.spring_boot_jpa.study.Study;
-import org.springframework.stereotype.Component;
+import com.silverhyuk.spring_boot_jpa.entity.study.Study;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 

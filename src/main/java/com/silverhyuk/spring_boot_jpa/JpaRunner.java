@@ -1,7 +1,9 @@
 package com.silverhyuk.spring_boot_jpa;
 
-import com.silverhyuk.spring_boot_jpa.account.Account;
-import com.silverhyuk.spring_boot_jpa.study.Study;
+import com.silverhyuk.spring_boot_jpa.entity.account.Account;
+import com.silverhyuk.spring_boot_jpa.entity.parentChild.Comment;
+import com.silverhyuk.spring_boot_jpa.entity.parentChild.Post;
+import com.silverhyuk.spring_boot_jpa.entity.study.Study;
 import org.hibernate.Session;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -10,7 +12,6 @@ import org.springframework.stereotype.Component;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.util.Date;
 
 @Component
 @Transactional
@@ -22,7 +23,7 @@ public class JpaRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        Account account = new Account();
+        /*Account account = new Account();
         account.setUsername("Silverhyuk");
         account.setPassword("password");
 
@@ -42,6 +43,22 @@ public class JpaRunner implements ApplicationRunner {
         eunhyuk.setUsername("Eunhyuk1");
         eunhyuk.setUsername("Eunhyuk2");
         System.out.println("==========================");
-        System.out.println(eunhyuk.getUsername());
+        System.out.println(eunhyuk.getUsername());*/
+
+        Post post = new Post();
+        post.setTitle("Spring Data JPA 언제보나...");
+
+        Comment comment = new Comment();
+        comment.setComment("빨리보고싶어요");
+        post.addComment(comment);
+
+        Comment comment1 = new Comment();
+        comment1.setComment("곧 보여드릴게요.");
+        post.addComment(comment1);
+
+        Session session = entityManager.unwrap(Session.class);
+        session.save(post);
+
+        //session.delete(post);
     }
 }
