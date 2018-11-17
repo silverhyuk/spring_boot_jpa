@@ -1,9 +1,6 @@
 package com.silverhyuk.spring_boot_jpa.entity.parentChild;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Comment {
@@ -14,7 +11,8 @@ public class Comment {
 
     private String comment;
 
-    @ManyToOne
+    //ManyToOne 의 fetch모드는 기본적으로 eager
+    @ManyToOne(fetch = FetchType.EAGER)
     private Post post;
 
 

@@ -45,7 +45,10 @@ public class JpaRunner implements ApplicationRunner {
         System.out.println("==========================");
         System.out.println(eunhyuk.getUsername());*/
 
-        Post post = new Post();
+        /**
+         * =====================================
+         */
+        /*Post post = new Post();
         post.setTitle("Spring Data JPA 언제보나...");
 
         Comment comment = new Comment();
@@ -54,11 +57,18 @@ public class JpaRunner implements ApplicationRunner {
 
         Comment comment1 = new Comment();
         comment1.setComment("곧 보여드릴게요.");
-        post.addComment(comment1);
+        post.addComment(comment1);*/
 
         Session session = entityManager.unwrap(Session.class);
-        session.save(post);
+        //session.save(post);
 
+        //Post post1 = session.get(Post.class, 1l);// get은 DB에 값이 없으면 null로 가져옴
+                                                            // load는 DB에 값이 없으면 Exception을 던짐
+        //System.out.println("========================");
+        //System.out.println(post1.getTitle());
         //session.delete(post);
+        Comment comment = session.get(Comment.class, 2l);
+        System.out.println("========================");
+        System.out.println(comment.getComment());
     }
 }

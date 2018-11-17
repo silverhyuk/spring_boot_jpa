@@ -13,7 +13,8 @@ public class Post {
 
     private String title;
 
-    @OneToMany(mappedBy = "post", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    //OneToMany의 Fetch모드는 기본적으로 Lazy
+    @OneToMany(mappedBy = "post", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private Set<Comment> comments = new HashSet<>();
 
     public void addComment(Comment comment) {
