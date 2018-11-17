@@ -4,8 +4,10 @@ import com.silverhyuk.spring_boot_jpa.entity.account.Account;
 import com.silverhyuk.spring_boot_jpa.entity.parentChild.Comment;
 import com.silverhyuk.spring_boot_jpa.entity.parentChild.Post;
 import com.silverhyuk.spring_boot_jpa.entity.study.Study;
+import com.silverhyuk.spring_boot_jpa.repository.PostRepository;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -23,12 +25,18 @@ import java.util.List;
 @Transactional
 public class JpaRunner implements ApplicationRunner {
 
-    @PersistenceContext
-    EntityManager entityManager; //jpa 핵심 클래스
+    /*@PersistenceContext
+    EntityManager entityManager; //jpa 핵심 클래스*/
 
+    @Autowired
+    PostRepository postRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+
+
+        postRepository.findAll().forEach(System.out::println);
+
         /*Account account = new Account();
         account.setUsername("Silverhyuk");
         account.setPassword("password");
@@ -86,12 +94,12 @@ public class JpaRunner implements ApplicationRunner {
         /**
          * Type Safe 한 쿼리 만들기===================
          */
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        /*CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Post> query = builder.createQuery(Post.class);
         Root<Post> root = query.from(Post.class);
         query.select(root);
 
         List<Post> posts = entityManager.createQuery(query).getResultList();
-        posts.forEach(System.out::println);
+        posts.forEach(System.out::println);*/
     }
 }
