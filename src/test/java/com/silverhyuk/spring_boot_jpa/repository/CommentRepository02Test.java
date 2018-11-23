@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
@@ -17,15 +18,19 @@ import static org.junit.Assert.*;
 public class CommentRepository02Test {
 
     @Autowired
-    CommentRepository commentRepository;
+    CommentRepository02 commentRepository02;
 
     @Test
     public void crud() {
         Comment comment = new Comment();
         comment.setComment("Hello Comment");
-        commentRepository.save(comment);
+        commentRepository02.save(comment);
+        commentRepository02.save(null);
 
-        List<Comment> all = commentRepository.findAll();
+        List<Comment> all = commentRepository02.findAll();
         assertThat(all.size()).isEqualTo(1);
+        Optional<Comment> byId = commentRepository02.findById(100l);
+        assertThat(byId).isEmpty();
+        Comment comment1 = byId.orElse(new Comment());
     }
 }
