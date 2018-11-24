@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -32,5 +31,30 @@ public class CommentRepository02Test {
         Optional<Comment> byId = commentRepository02.findById(100l);
         assertThat(byId).isEmpty();
         Comment comment1 = byId.orElse(new Comment());
+    }
+
+    @Test
+    public void queryCreate() {
+        this.createCommon(100, "HELLO");
+        List<Comment> hello = commentRepository02.findByCommentContainsIgnoreCaseAndLikeCountGreaterThan("hello",10);
+        assertThat(hello.size()).isEqualTo(1 );
+    }
+
+    @Test
+    public void queryOrderBy() {
+        this.createCommon(100, "spring data jpa");
+        this.createCommon(55, "HIBERNATE SPRING");
+        List<Comment> hello = commentRepository02.findByCommentContainsIgnoreCaseOrderByLikeCountDesc("spring");        assertThat(hello.size()).isEqualTo(2);
+        assertThat(hello.size()).isEqualTo(2);
+        assertThat(hello).first().hasFieldOrPropertyWithValue("likeCount", 100);
+
+    }
+
+    //ctrl + alt + [m]
+    private void createCommon(int likeCount, String comment) {
+        Comment newComment = new Comment();
+        newComment.setComment(comment);
+        newComment.setLikeCount(likeCount);
+        commentRepository02.save(newComment);
     }
 }

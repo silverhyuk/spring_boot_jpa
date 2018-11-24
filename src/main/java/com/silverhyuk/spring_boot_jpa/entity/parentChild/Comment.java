@@ -11,11 +11,20 @@ public class Comment {
 
     private String comment;
 
+    private Integer likeCount = 0;
+
     //ManyToOne 의 fetch모드는 기본적으로 eager
     @ManyToOne(fetch = FetchType.EAGER)
     private Post post;
 
 
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
 
     public Long getId() {
         return id;
