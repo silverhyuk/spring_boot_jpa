@@ -5,6 +5,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -44,10 +47,23 @@ public class CommentRepository02Test {
     public void queryOrderBy() {
         this.createCommon(100, "spring data jpa");
         this.createCommon(55, "HIBERNATE SPRING");
-        List<Comment> hello = commentRepository02.findByCommentContainsIgnoreCaseOrderByLikeCountDesc("spring");        assertThat(hello.size()).isEqualTo(2);
+        List<Comment> hello = commentRepository02.findByCommentContainsIgnoreCaseOrderByLikeCountDesc("spring");
         assertThat(hello.size()).isEqualTo(2);
         assertThat(hello).first().hasFieldOrPropertyWithValue("likeCount", 100);
 
+    }
+
+    @Test
+    public void pageTest() {
+        this.createCommon(100, "spring data jpa");
+        this.createCommon(55, "HIBERNATE SPRING");
+
+        PageRequest pageRequest = PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "LikeCount"));
+
+        Page<Comment> hello = commentRepository02.findByCommentContainsIgnoreCase("spring", pageRequest);
+        assertThat(hello.getNumberOfElements()).isEqualTo(2);
+        assertThat(hello.getTotalElements()).isEqualTo(2);
+        assertThat(hello).first().hasFieldOrPropertyWithValue("likeCount", 100);
     }
 
     //ctrl + alt + [m]
